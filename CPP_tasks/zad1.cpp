@@ -29,44 +29,28 @@ public:
 
 class prostokat {
 private:
-    double _x, _y, _z;
+    punkt pkt;
     double _a, _b;
 public:
-    prostokat() {
-        cout << "Podaj wspolrzedna min. x:" << endl;
-        cin >> _x;
-        cout << "Podaj wspolrzedna min. y:" << endl;
-        cin >> _y;
-        cout << "Podaj wspolrzedna z:" << endl;
-        cin >> _z;
+    prostokat(): pkt() {
         cout << "Podaj szerokosc:" << endl;
         cin >> _a;
         cout << "Podaj dlugosc:" << endl;
         cin >> _b;
     }
-    prostokat(double x, double y, double z, double a, double b) {
-        _x = x;
-        _y = y;
-        _z = z;
-        _a = a;
-        _b = b;
-    }
-    prostokat(punkt &p, double a, double b) {
-        _x = p.x();
-        _y = p.y();
-        _z = p.z();
-        _a = a;
-        _b = b;
-    }
+    prostokat(double x, double y, double z, double a, double b): pkt(x,y,z), _a(a), _b(b) {}
+
+    prostokat(punkt &p, double a, double b): pkt(p), _a(a), _b(b) {}
+
     double pole() const {
         return _a * _b;
     }
-    double& x() {return _x;}
-    double x() const {return _x;}
-    double& y() {return _y;}
-    double y() const {return _y;}
-    double& z() {return _z;}
-    double z() const {return _z;}
+    double& x() {return pkt.x();}
+    double x() const {return pkt.x();}
+    double& y() {return pkt.y();}
+    double y() const {return pkt.y();}
+    double& z() {return pkt.z();}
+    double z() const {return pkt.z();}
     double& a() {return _a;}
     double a() const {return _a;}
     double& b() {return _b;}
@@ -75,61 +59,30 @@ public:
 
 class graniastoslup {
 private:
-    double _x, _y, _z;
-    double _a, _b;
+    prostokat pr;
     double _h;
 public:
-    graniastoslup() {
-        cout << "Podaj wspolrzedna min. x:" << endl;
-        cin >> _x;
-        cout << "Podaj wspolrzedna min. y:" << endl;
-        cin >> _y;
-        cout << "Podaj wspolrzedna min. z:" << endl;
-        cin >> _z;
-        cout << "Podaj szerokosc podstawy:" << endl;
-        cin >> _a;
-        cout << "Podaj dlugosc podstawy:" << endl;
-        cin >> _b;
+    graniastoslup(): pr() {
         cout << "Podaj wysokosc:" << endl;
         cin >> _h;
     }
-    graniastoslup(double x, double y, double z, double a, double b, double h) {
-        _x = x;
-        _y = y;
-        _z = z;
-        _a = a;
-        _b = b;
-        _h = h;
-    }
-    graniastoslup(punkt &p, double a, double b, double h) {
-        _x = p.x();
-        _y = p.y();
-        _z = p.z();
-        _a = a;
-        _b = b;
-        _h = h;
-    }
-    graniastoslup(const prostokat &pr, double h) {
-        _x = pr.x();
-        _y = pr.y();
-        _z = pr.z();
-        _a = pr.a();
-        _b = pr.b();
-        _h = h;
-    }
+    graniastoslup(double x, double y, double z, double a, double b, double h): pr(x,y,z,a,b), _h(h){}
+    graniastoslup(punkt &p, double a, double b, double h): pr(p,a,b), _h(h){}
+    graniastoslup(const prostokat &p, double h): pr(p), _h(h){}
+
     double objetosc() const {
-        return _a * _b * _h;
+        return pr.pole() * _h;
     }
-    double& x() {return _x;}
-    double x() const {return _x;}
-    double& y() {return _y;}
-    double y() const {return _y;}
-    double& z() {return _z;}
-    double z() const {return _z;}
-    double& a() {return _a;}
-    double a() const {return _a;}
-    double& b() {return _b;}
-    double b() const {return _b;}
+    double& x() {return pr.x();}
+    double x() const {return pr.x();}
+    double& y() {return pr.y();}
+    double y() const {return pr.y();}
+    double& z() {return pr.z();}
+    double z() const {return pr.z();}
+    double& a() {return pr.a();}
+    double a() const {return pr.a();}
+    double& b() {return pr.b();}
+    double b() const {return pr.b();}
     double& h() {return _h;}
     double h() const {return _h;}
 };
